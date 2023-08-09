@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="https://img.icons8.com/?size=512&id=24516&format=png" />
+    <title>JavaScript Form Validation Library</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+    <script src="script.js" defer type="module"></script>
+    <style>
+      p {
+        margin: 0;
+      }
+      label {
+        font-weight: bold;
+      }
+      label + p {
+        margin-bottom: 0.5rem;
+      }
+      fieldset > div:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript UI Form Validation Library</h1>
+    <h2>Extend your html form validations easily with HTML attributes!</h2>
+    <h4>
+      Keep in mind that this are just UI validations and they shouldn't be trusted to sent data to
+      the backend without a proper validation
+    </h4>
+    <h2>Try it out</h2>
+    <form id="form">
+      <fieldset>
+        <legend>Letters</legend>
+        <div>
+          <label>Letters with spaces:</label>
+          <p>
+            Only letters with spaces will be allowed. You won't be able to type symbols nor numbers
+          </p>
+          <input type="text" fv-allowed-types="letters" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters with NO spaces</label>
+          <p>
+            Only letters without spaces will be allowed. You won't be able to type symbols nor
+            numbers
+          </p>
+          <input type="text" fv-allowed-types="letters(nospace)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters 20 max characters</label>
+          <p>
+            Only letters with spaces will be allowed. You won't be able to type symbols, numbers or
+            more than 20 characters
+          </p>
+          <input type="text" fv-allowed-types="letters" fv-max-chars="20" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters capitalized</label>
+          <p>
+            Only capital letters will be allowed. You won't be able to type symbols, numbers or
+            lowercase letters
+          </p>
+          <input
+            type="text"
+            fv-allowed-types="letters"
+            fv-text-transform="uppercase"
+            autocomplete="off"
+          />
+        </div>
+        <div>
+          <label>Letters capitalized NO spaces</label>
+          <p>
+            Only capital letters with no spaces will be allowed. You won't be able to type symbols,
+            numbers or lowercase letters
+          </p>
+          <input
+            type="text"
+            fv-allowed-types="letters(nospace)"
+            fv-text-transform="uppercase"
+            autocomplete="off"
+          />
+        </div>
+        <div>
+          <label>Letters lowercase</label>
+          <p>
+            Only lowercase letters will be allowed. You won't be able to type symbols, numbers or
+            lowercase letters
+          </p>
+          <input
+            type="text"
+            fv-allowed-types="letters"
+            fv-text-transform="lowercase"
+            autocomplete="off"
+          />
+        </div>
+        <div>
+          <label>Letters lowercase NO spaces</label>
+          <p>
+            Only lowercase letters with no spaces will be allowed. You won't be able to type
+            symbols, numbers or lowercase letters
+          </p>
+          <input
+            type="text"
+            fv-allowed-types="letters(nospace)"
+            fv-text-transform="lowercase"
+            autocomplete="off"
+          />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Symbols</legend>
+        <div>
+          <label>Symbols</label>
+          <p>Only symbols will be allowed. You won't be able to type letters nor numbers</p>
+          <input type="text" fv-allowed-types="symbols" autocomplete="off" />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Numbers</legend>
+        <div>
+          <label>Int numbers (both positive and negative)</label>
+          <p>
+            Only int numbers will be allowed. You won't be able to type letters nor symbols or float
+            numbers
+          </p>
+          <input type="text" fv-allowed-types="numbers(int)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Int positive numbers</label>
+          <p>
+            Only int positive numbers will be allowed. You won't be able to type letters, symbols,
+            or int negative numbers
+          </p>
+          <input type="text" fv-allowed-types="numbers(+int)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Int negative numbers</label>
+          <p>
+            Only int negative numbers will be allowed. You won't be able to type letters, symbols,
+            or int positive numbers
+          </p>
+          <input type="text" fv-allowed-types="numbers(-int)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Float numbers (both positive and negative)</label>
+          <p>
+            Only float numbers will be allowed. You won't be able to type letters nor symbols or int
+            numbers
+          </p>
+          <input type="text" fv-allowed-types="numbers(float)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Float positive numbers</label>
+          <p>
+            Only float positive numbers will be allowed. You won't be able to type letters, symbols,
+            or float negative numbers
+          </p>
+          <input type="text" fv-allowed-types="numbers(+float)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Float negative numbers</label>
+          <p>
+            Only float negative numbers will be allowed. You won't be able to type letters, symbols,
+            or float positive numbers
+          </p>
+          <input type="text" fv-allowed-types="numbers(-float)" autocomplete="off" />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Mix</legend>
+        <div>
+          <label>Letters and symbols</label>
+          <p>
+            Only letters and symbols will be allowed. You won't be able to type numbers of any kind
+          </p>
+          <input type="text" fv-allowed-types="letters|symbols" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters(nospace) and symbols</label>
+          <p>
+            Only letters and symbols will be allowed. You won't be able to type numbers of any kind
+            nor spaces
+          </p>
+          <input type="text" fv-allowed-types="letters(nospace)|symbols" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters and numbers(int)</label>
+          <p>Only letters and integer numbers will be allowed. You won't be able to type symbols</p>
+          <input type="text" fv-allowed-types="letters|numbers(int)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters(nospace) and numbers(int)</label>
+          <p>
+            Only letters and integer numbers will be allowed. You won't be able to type symbols nor
+            spaces
+          </p>
+          <input type="text" fv-allowed-types="letters(nospace)|numbers(int)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters and numbers(float)</label>
+          <p>Only letters and float numbers will be allowed. You won't be able to type symbols</p>
+          <input type="text" fv-allowed-types="letters|numbers(float)" autocomplete="off" />
+        </div>
+        <div>
+          <label>Letters(nospace) and numbers(float)</label>
+          <p>
+            Only letters and float numbers will be allowed. You won't be able to type symbols nor
+            spaces
+          </p>
+          <input
+            type="text"
+            fv-allowed-types="letters(nospace)|numbers(float)"
+            autocomplete="off"
+          />
+        </div>
+      </fieldset>
+    </form>
+  </body>
+</html>
