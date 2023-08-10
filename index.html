@@ -5,217 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="https://img.icons8.com/?size=512&id=24516&format=png" />
     <title>JavaScript Form Validation Library</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css" />
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Google icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <script src="script.js" defer type="module"></script>
     <style>
-      p {
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        color-scheme: dark;
         margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding-inline: 1rem;
+      }
+      header {
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 1240px;
+        margin-inline: auto;
+      }
+      main {
+        max-width: 1240px;
+        margin-inline: auto;
+      }
+      header h1 {
+        font-size: 5rem;
+      }
+      header h2 {
+        font-size: 1.8rem;
+      }
+      header p {
+        margin-top: 0.8rem;
+        margin-bottom: 1.3rem;
+        max-width: 768px;
+        margin-inline: auto;
       }
       label {
         font-weight: bold;
       }
-      label + p {
+      div:has(> input):not(.copy) {
+        margin-bottom: 2rem;
+      }
+      input:not(.copy__input) {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-size: 1.2rem;
+      }
+      input:has(+ button) + button:not(.copy__button) {
+        cursor: pointer;
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+      }
+      small {
+        display: block;
         margin-bottom: 0.5rem;
       }
-      fieldset > div:not(:last-child) {
-        margin-bottom: 2rem;
+      div:has(.copy) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-inline: auto;
+        gap: 1rem;
+      }
+      div:has(.copy) > a {
+        text-decoration: none;
+        color: white;
+        background: #0d6efd;
+        padding: 0.6rem 1.5rem;
+        border-radius: 5px;
+      }
+      .copy {
+        width: max-content;
+        position: relative;
+      }
+      .copy__input {
+        color: white;
+        border-radius: 5px;
+        border: 2px solid white;
+        padding: 0.6rem 1.5rem;
+      }
+      .copy__button {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0.5rem;
+        background: none;
+        border: none;
+      }
+      @media (min-width: 768px) {
+        .copy__input {
+          width: 620px;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>JavaScript UI Form Validation Library</h1>
-    <h2>Extend your html form validations easily with HTML attributes!</h2>
-    <h4>
-      Keep in mind that this are just UI validations and they shouldn't be trusted to sent data to
-      the backend without a proper validation
-    </h4>
-    <h2>Try it out</h2>
-    <form id="form">
-      <fieldset>
-        <legend>Letters</legend>
-        <div>
-          <label>Letters with spaces:</label>
-          <p>
-            Only letters with spaces will be allowed. You won't be able to type symbols nor numbers
-          </p>
-          <input type="text" fv-allowed-types="letters" autocomplete="off" />
+    <header>
+      <h1>UI Form Validator</h1>
+      <h2>HTML validator attributes with superpowers</h2>
+      <p>
+        This is a simple UI validation that works through HTML attributes, you shouldn't completely
+        trust this type of validation and you should always purge data before sending it to the
+        database!
+      </p>
+      <div>
+        <div class="copy">
+          <input
+            class="copy__input"
+            type="text"
+            disabled
+            value="https://cdn.jsdelivr.net/gh/jorgeabrahan/ui_form_validation@d5e8b58/Validator/Validator.js"
+          />
+          <button class="copy__button">
+            <span class="material-symbols-outlined">content_copy</span>
+          </button>
         </div>
+        <a
+          href="https://github.com/jorgeabrahan/ui_form_validation/blob/main/README.md"
+          target="_blank"
+        >
+          Documentation
+        </a>
+      </div>
+    </header>
+    <main>
+      <form id="form">
+        <!-- name input -->
         <div>
-          <label>Letters with NO spaces</label>
-          <p>
-            Only letters without spaces will be allowed. You won't be able to type symbols nor
-            numbers
-          </p>
-          <input type="text" fv-allowed-types="letters(nospace)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Letters 20 max characters</label>
-          <p>
-            Only letters with spaces will be allowed. You won't be able to type symbols, numbers or
-            more than 20 characters
-          </p>
+          <label>Your name:</label>
+          <small>letters / 20 max chars</small>
           <input type="text" fv-allowed-types="letters" fv-max-chars="20" autocomplete="off" />
         </div>
+        <!-- username input -->
         <div>
-          <label>Letters capitalized</label>
-          <p>
-            Only capital letters will be allowed. You won't be able to type symbols, numbers or
-            lowercase letters
-          </p>
-          <input
-            type="text"
-            fv-allowed-types="letters"
-            fv-text-transform="uppercase"
-            autocomplete="off"
-          />
-        </div>
-        <div>
-          <label>Letters capitalized NO spaces</label>
-          <p>
-            Only capital letters with no spaces will be allowed. You won't be able to type symbols,
-            numbers or lowercase letters
-          </p>
+          <label>Your username:</label>
+          <small>letters / nospace / 20 max chars</small>
           <input
             type="text"
             fv-allowed-types="letters(nospace)"
-            fv-text-transform="uppercase"
+            fv-max-chars="20"
             autocomplete="off"
           />
         </div>
+        <!-- age input -->
         <div>
-          <label>Letters lowercase</label>
-          <p>
-            Only lowercase letters will be allowed. You won't be able to type symbols, numbers or
-            lowercase letters
-          </p>
-          <input
-            type="text"
-            fv-allowed-types="letters"
-            fv-text-transform="lowercase"
-            autocomplete="off"
-          />
+          <label>Your age:</label>
+          <small>int positive numbers / 2 max chars</small>
+          <input type="text" fv-allowed-types="numbers(+int)" fv-max-chars="2" autocomplete="off" />
         </div>
+        <!-- negative age input -->
         <div>
-          <label>Letters lowercase NO spaces</label>
-          <p>
-            Only lowercase letters with no spaces will be allowed. You won't be able to type
-            symbols, numbers or lowercase letters
-          </p>
-          <input
-            type="text"
-            fv-allowed-types="letters(nospace)"
-            fv-text-transform="lowercase"
-            autocomplete="off"
-          />
+          <label>Your age in negative:</label>
+          <small>int negative numbers / 3 max chars</small>
+          <input type="text" fv-allowed-types="numbers(-int)" fv-max-chars="3" autocomplete="off" />
         </div>
-      </fieldset>
-      <fieldset>
-        <legend>Symbols</legend>
+        <!-- pi input -->
         <div>
-          <label>Symbols</label>
-          <p>Only symbols will be allowed. You won't be able to type letters nor numbers</p>
-          <input type="text" fv-allowed-types="symbols" autocomplete="off" />
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>Numbers</legend>
-        <div>
-          <label>Int numbers (both positive and negative)</label>
-          <p>
-            Only int numbers will be allowed. You won't be able to type letters nor symbols or float
-            numbers
-          </p>
-          <input type="text" fv-allowed-types="numbers(int)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Int positive numbers</label>
-          <p>
-            Only int positive numbers will be allowed. You won't be able to type letters, symbols,
-            or int negative numbers
-          </p>
-          <input type="text" fv-allowed-types="numbers(+int)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Int negative numbers</label>
-          <p>
-            Only int negative numbers will be allowed. You won't be able to type letters, symbols,
-            or int positive numbers
-          </p>
-          <input type="text" fv-allowed-types="numbers(-int)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Float numbers (both positive and negative)</label>
-          <p>
-            Only float numbers will be allowed. You won't be able to type letters nor symbols or int
-            numbers
-          </p>
-          <input type="text" fv-allowed-types="numbers(float)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Float positive numbers</label>
-          <p>
-            Only float positive numbers will be allowed. You won't be able to type letters, symbols,
-            or float negative numbers
-          </p>
+          <label>Type all π numbers you remember:</label>
+          <small>float positive numbers</small>
           <input type="text" fv-allowed-types="numbers(+float)" autocomplete="off" />
         </div>
+        <!-- gravity input -->
         <div>
-          <label>Float negative numbers</label>
-          <p>
-            Only float negative numbers will be allowed. You won't be able to type letters, symbols,
-            or float positive numbers
-          </p>
+          <label>Type the acceleration due to gravity:</label>
+          <small>float negative numbers</small>
           <input type="text" fv-allowed-types="numbers(-float)" autocomplete="off" />
         </div>
-      </fieldset>
-      <fieldset>
-        <legend>Mix</legend>
+        <!-- symbol input -->
         <div>
-          <label>Letters and symbols</label>
-          <p>
-            Only letters and symbols will be allowed. You won't be able to type numbers of any kind
-          </p>
-          <input type="text" fv-allowed-types="letters|symbols" autocomplete="off" />
+          <label>Your symbol:</label>
+          <small>symbols / 1 max chars</small>
+          <input type="text" fv-allowed-types="symbols" fv-max-chars="1" autocomplete="off" />
         </div>
+        <!-- hex color input -->
         <div>
-          <label>Letters(nospace) and symbols</label>
-          <p>
-            Only letters and symbols will be allowed. You won't be able to type numbers of any kind
-            nor spaces
-          </p>
-          <input type="text" fv-allowed-types="letters(nospace)|symbols" autocomplete="off" />
-        </div>
-        <div>
-          <label>Letters and numbers(int)</label>
-          <p>Only letters and integer numbers will be allowed. You won't be able to type symbols</p>
-          <input type="text" fv-allowed-types="letters|numbers(int)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Letters(nospace) and numbers(int)</label>
-          <p>
-            Only letters and integer numbers will be allowed. You won't be able to type symbols nor
-            spaces
-          </p>
-          <input type="text" fv-allowed-types="letters(nospace)|numbers(int)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Letters and numbers(float)</label>
-          <p>Only letters and float numbers will be allowed. You won't be able to type symbols</p>
-          <input type="text" fv-allowed-types="letters|numbers(float)" autocomplete="off" />
-        </div>
-        <div>
-          <label>Letters(nospace) and numbers(float)</label>
-          <p>
-            Only letters and float numbers will be allowed. You won't be able to type symbols nor
-            spaces
-          </p>
+          <label>Hex color:</label>
+          <small>
+            int positive numbers / letters just A-F / nospace / 6 max chars / text transform
+            uppercase
+          </small>
           <input
             type="text"
-            fv-allowed-types="letters(nospace)|numbers(float)"
+            fv-allowed-types="numbers(+int)"
+            fv-allowed-chars="abcdef"
+            fv-max-chars="6"
+            fv-text-transform="uppercase"
             autocomplete="off"
           />
         </div>
-      </fieldset>
-    </form>
+        <!-- password input -->
+        <div>
+          <label>Password:</label>
+          <small>
+            int positive numbers / letters / symbols / nospace / 30 max chars / disallowed chars
+            ':[]</small
+          >
+          <div style="position: relative">
+            <input
+              type="password"
+              fv-allowed-types="numbers(+int)|letters(nospace)|symbols"
+              fv-disallowed-chars="':[]"
+              fv-max-chars="30"
+            />
+            <button
+              type="button"
+              onclick="this.previousElementSibling.type = this.previousElementSibling.type === 'password' ? 'text' : 'password';this.firstElementChild.textContent = this.firstElementChild.textContent.trim() === 'visibility' ? 'visibility_off' : 'visibility'"
+            >
+              <span class="material-symbols-outlined" style="font-size: 1.2rem"> visibility </span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </main>
   </body>
 </html>
