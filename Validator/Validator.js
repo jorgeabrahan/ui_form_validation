@@ -1,7 +1,5 @@
 const typesToValidateOnChange = ['text', 'password', 'email']
 
-// TODO: only allow a specific set of symbols
-// TODO: only allow a specific set of letters
 class FormValidator {
   #wasCharRemoved = false
   #wasCharAdded = false
@@ -143,29 +141,35 @@ class FormValidator {
     event.stopImmediatePropagation()
     if (input === null || input?.value === '') return
     const selection = input.selectionStart
-
+    const insertedIndex = selection - 1
+    const insertedChar = event?.data || ''
+    const allowedChars = input?.getAttribute('fv-allowed-chars') || ''
+    const isInsertedAllowed = allowedChars.toLowerCase().includes(insertedChar.toLowerCase())
+    const disallowedChars = input?.getAttribute('fv-disallowed-chars') || ''
+    const isInsertedDisallowed = disallowedChars.toLowerCase().includes(insertedChar.toLowerCase())
     const allowedTypes = input.getAttribute('fv-allowed-types')
-    if (allowedTypes !== null)
+    if (allowedTypes !== null && !isInsertedAllowed && !isInsertedDisallowed)
       input.value = this.#valueAllowedTypes(
         allowedTypes?.toLowerCase(),
         input?.value,
-        event?.data,
-        selection - 1,
+        insertedChar,
+        insertedIndex,
         event?.inputType
       )
     // if the input event wasn't triggered because of inserting text
     if (event?.inputType !== 'insertText') return
+
+    if (isInsertedDisallowed) {
+      this.#wasCharRemoved = true
+      input.value = `${input.value.slice(0, insertedIndex)}${input.value.slice(insertedIndex + 1)}`
+    }
+
     const textTransform = input.getAttribute('fv-text-transform')
     if (textTransform !== null && textTransform !== '')
       input.value = this.#valueTextTransform(textTransform, input?.value)
     const maxChars = input.getAttribute('fv-max-chars')
-    if (
-      maxChars !== null &&
-      !Number.isNaN(Number(maxChars)) &&
-      Number(maxChars) > 0 &&
-      !allowedTypes.includes('numbers')
-    )
-      input.value = this.#valueMaxChars(Number(maxChars), input?.value, selection - 1)
+    if (maxChars !== null && !Number.isNaN(Number(maxChars)) && Number(maxChars) > 0)
+      input.value = this.#valueMaxChars(Number(maxChars), input?.value, insertedIndex)
 
     if (this.#wasCharRemoved) {
       // if a char was removed selection needs to be displaced to the left preserve previous position
