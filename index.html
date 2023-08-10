@@ -88,6 +88,7 @@
       }
       div:has(.copy) {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         margin-inline: auto;
@@ -119,7 +120,17 @@
         background: none;
         border: none;
       }
-      @media (min-width: 768px) {
+      .try {
+        color: white;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        text-decoration: none;
+        width: max-content;
+        margin-inline: auto;
+        margin-top: 10rem;
+      }
+      @media (min-width: 820px) {
         .copy__input {
           width: 620px;
         }
@@ -154,6 +165,9 @@
           Documentation
         </a>
       </div>
+      <a class="try" href="#form"
+        >Try it out <span class="material-symbols-outlined"> mouse </span></a
+      >
     </header>
     <main>
       <form id="form">
